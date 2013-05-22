@@ -1,0 +1,302 @@
+
+    ::selection{ background-color: #E13300; color: white; }
+    ::moz-selection{ background-color: #E13300; color: white; }
+    ::webkit-selection{ background-color: #E13300; color: white; }
+
+    body {
+        background-color: #ffffff;
+        margin: 15px 0px;
+        font: 13px/20px normal Helvetica, Arial, sans-serif;
+        color: #4F5155;
+    }
+
+    a {
+        color: #003399;
+        background-color: transparent;
+        font-weight: normal;
+    }
+
+    h1 {
+        color: #444;
+        background-color: transparent;
+        border-bottom: 1px solid #D0D0D0;
+        font-size: 19px;
+        font-weight: normal;
+        margin: 0 0 3px 0;
+        padding: 2px 0 0 0;
+    }
+
+    code {
+        font-family: Consolas, Monaco, Courier New, Courier, monospace;
+        font-size: 12px;
+        background-color: #f9f9f9;
+        border: 1px solid #D0D0D0;
+        color: #002166;
+        display: block;
+        margin: 14px 0 14px 0;
+        padding: 12px 10px 12px 10px;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        -webkit-margin-before: 0em;
+        -webkit-margin-after: 0em;
+        -webkit-padding-start: 0px;
+    }
+
+    p {
+        -webkit-margin-before: 0em;
+        -webkit-margin-after: 0em; 
+    }
+
+    p.footer{
+        text-align: right;
+        font-size: 11px;
+        border-top: 1px solid #D0D0D0;
+        line-height: 32px;
+        padding: 0 10px 0 10px;
+        margin: 20px 0 0 0;
+    }
+    
+    #main_content tr:nth-child(even) {background: #E5E5E5}
+    #main_content tr:nth-child(odd) {background: #F5F5F5}
+    
+    label {
+         float: left;
+         width: 100px;
+      }
+ 
+    fieldset {
+       -webkit-margin-start: 0px;
+       -webkit-margin-end: 0px;
+       -webkit-padding-before: 0em;
+       -webkit-padding-start: 0em;
+       -webkit-padding-end: 0em;
+       -webkit-padding-after: 0em;
+       border: 0px groove threedface;
+       border-image: initial;
+    }
+
+    .row {
+       clear: both;
+    }
+
+    .col2 {
+       float: left;
+       width: 50%;
+    }
+
+    .fr {
+       float: right;
+    }
+
+    .marg-10 { 
+        margin: 10px 10px 0 10px;
+    }
+    
+    .aln-r {
+        text-align: right;
+    }
+      
+    #container{  
+            margin-left: auto;
+            margin-right: auto;
+            width: 960px;
+            border: 1px solid #D0D0D0;
+            -webkit-box-shadow: 0 0 8px #D0D0D0;
+    }
+
+    #heading {
+        display: block;
+        float: left;
+        margin-left: 0px;
+        margin-right: 0px;
+        width: 960px; 
+        line-height: normal;
+    }
+
+    #logo {
+        display: block;
+        float: left; 
+        width: 150px; 
+        padding: 15px 20px 10px 20px;
+    }    
+
+    #title{
+        display: block;
+        font-size: 25px;
+        float: left; 
+        width: 620px; 
+        padding: 10px; 
+    }
+
+    #title td {
+        text-align: center; 
+        padding-left: 15px;
+    }
+
+    #title-left{
+        font-size: 50px; 
+        height: 115px;
+        width: 310px;
+        float: left;
+        margin-top: 10px;
+    }
+
+    #title-right{
+        font-size: 19px; 
+        height: 60px;
+        width: 238px;
+        float: left;
+        margin: 20px;
+        border: 1px solid #D0D0D0;
+        -webkit-box-shadow: 0 0 8px #D0D0D0;
+        padding: 15px 10px 10px 20px;
+    }
+
+    #login {
+        display: block;
+        float: left; 
+        width: 110px; 
+        padding:  0 20px 0 0;
+        text-align: right;
+    }
+
+    #loginmenu {
+        width: 400px; 
+        float: right;
+        padding-top: 15px;
+    }
+
+    .loginmenuitem {
+        display: block; 
+        float: right; 
+        margin-right: 5px;
+        text-decoration: none;
+    }
+
+    #CAMRAlogo { 
+        padding: 10px 0 0 0; 
+        float: right; 
+    }
+
+    #body {
+        margin: 15px 15px 0 15px;
+    }
+
+    .MenuContainer{
+        float: left; 
+    }
+
+    .MenuItem{
+        float: left;
+        display: inline;  
+        padding: 5px 0;
+        width: 238px;
+        border:  1px solid white;
+        text-align: center; 
+        background-image: url("http://www.norwichcamra.org.uk/images/menu.png");
+    }
+
+    .MenuItem a {
+        color: yellow;
+        font-size: 15px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .MenuItemSelected{
+        float: left;
+        display: inline;  
+        padding: 5px 0;
+        width: 238px;
+        border:  1px solid white;
+        text-align: center; 
+        background-image: url("http://www.norwichcamra.org.uk/images/menuselected.png");
+    }
+
+    .MenuItemSelected a {
+        color: green;
+        font-size: 15px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    #left_content{
+        float: left;
+        width: 145px;
+    }
+
+    .pubitem {
+        text-align: left; 
+    }
+
+    .realale { 
+        color: green;
+    }
+
+    .norealale { 
+        color: red;
+    }
+
+    .unsurveyed { 
+        color: orange;
+    }
+
+    #main_content{
+        float: left; 
+        width: 640px;
+    }
+
+    .main_heading {
+        font-size: 30px;
+        line-height: 35px;  
+    }
+
+    .main_detail {
+        font-size: 15px;
+        line-height: 20px; 
+    }
+    
+    #pubVolunteerAddForm label {
+        width: auto; 
+        margin: 2px 4px;
+    }
+    
+    #pubVolunteerAddForm input {
+        float: left;
+        margin: 2px 4px;
+    }
+    
+    #searchresults {
+       padding: 0 0 10px 103px;
+    } 
+
+    #pubBeerAdd { 
+         padding: 10px;
+         border: 1px solid #E5E5E5;
+    }
+
+    #right_content{
+        float: right; 
+        width: 145px;
+    }
+
+    .undec-link {
+        text-decoration: none;
+        color: black;
+    }
+
+    .clear {
+        clear: both; 
+        height:0; 
+        margin:0; 
+        line-height: 0px;
+    } 
+
+    .normal {        
+        font: 13px/20px normal Helvetica, Arial, sans-serif;
+        text-align: justify;
+        padding-bottom: 2px;
+    }
