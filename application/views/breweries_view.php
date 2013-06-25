@@ -28,7 +28,7 @@
                     foreach( $breweries as $brewery ) {
                         $breweryName = $brewery['BreweryName'];
                         $breweryID = $brewery['BreweryID'];
-                        $class = "breweryli";
+                        $class = "breweryitem";
                         echo '<li class="'.$class.'" id="'.$breweryID.'">'.$breweryName.'</li>';
                     }
                 ?>

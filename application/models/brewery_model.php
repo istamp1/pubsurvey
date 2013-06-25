@@ -50,7 +50,7 @@ class brewery_model extends CI_Model {
 
     public function mergeBreweries( $breweryIdToKeep, $breweryIdToMerge ) {
         // get brewery's beers
-        $breweryBeersToMerge = $this-getBreweryBeers_array( $breweryIdToMerge );
+        $breweryBeersToMerge = $this->getBreweryBeers_array( $breweryIdToMerge );
         // change the brewery id of eaach to the new brewery
         foreach ($breweryBeersToMerge as $breweryBeerToMerge) {
             $this->updateBeer( $breweryBeerToMerge['BeerID'], array( 'BreweryID' => $breweryIdToKeep ) );
