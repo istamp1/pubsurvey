@@ -32,16 +32,16 @@ class brewery_model extends CI_Model {
     }
 
     public function getBreweryBeers_array( $breweryid ) {
-        $sql = "SELECT b.BeerID,
+        $sql = "SELECT b.BeerID
                      , b.BreweryID, b.BeerName, b.ABV, b.BeerStyle, b.BeerCiderPerry
                      , br.BreweryName
                      , bs.StyleDescription
                   FROM locBeer b
                        JOIN locBrewery br ON b.BreweryID = br.BreweryID
                        LEFT JOIN locBeerStyle bs ON b.BeerStyle = bs.BeerStyle
-                 WHERE b.BreweryID = '$breweryid'";
-        $sql = $sql." ORDER BY br.BreweryName, b.BeerName";
-
+                 WHERE b.BreweryID = '$breweryid'
+                 ORDER BY br.BreweryName, b.BeerName"; 
+        
         $query = $this->db->query($sql);
         $brewerybeers = $query->result_array();
 
@@ -49,7 +49,7 @@ class brewery_model extends CI_Model {
     }
 
     public function mergeBreweries( $breweryIdToKeep, $breweryIdToMerge ) {
-        // get brewery's beers
+        // get brewery's beers 
         $breweryBeersToMerge = $this->getBreweryBeers_array( $breweryIdToMerge );
         // change the brewery id of eaach to the new brewery
         foreach ($breweryBeersToMerge as $breweryBeerToMerge) {

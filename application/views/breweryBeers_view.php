@@ -14,23 +14,29 @@
     </div>
     <div class="clear"></div>
     <div class="mergeBrewery">
-        <form id="breweryToMergeForm">
-            <label for="breweryToMerge">Brewery to merge:</label>
-            <input type="text" name="breweryToMerge" id="breweryToMerge" value="" size="5" maxlength="6">
-            <input type="text" name="breweryId" id="breweryId" value="<?php echo $BreweryID; ?>">
+        <form id="breweryToMergeForm"> 
+            <select id="breweryToMerge" name="breweryToMerge">
+                <?php 
+                    foreach ( $breweries as $brewery ) {
+                        echo '<option value="'.$brewery['BreweryID'].'">'.$brewery['BreweryName'].'</option>';
+                    }  
+                ?>
+            </select>            
+            <input type="hidden" name="breweryId" id="breweryId" value="<?php echo $BreweryID; ?>">
             <button type="submit" value="Submit">Merge</button>
         </form>
-    </div>
+    </div> 
 
     <script>
         $('#breweryToMergeForm').submit(function() {
-            var breweryToMerge = $('#breweryToMerge').val();
+            var breweryToMerge = $('#breweryToMerge').val(); 
             var breweryId = $('#breweryId').val();
+            alert(breweryToMerge); 
+            
             $.post( './breweries/mergeBreweries'
                   , { 'breweryId':breweryId, 'breweryToMergeId':breweryToMerge }
                   , function(result) {
                         // if there is a result, fill the list div and fade it in
-                        alert(result);
                         if(result) {
                             $('#main_content').html(result);
                             $('#main_content').fadeIn(100);

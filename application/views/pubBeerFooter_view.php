@@ -1,7 +1,7 @@
 </table> 
 
 <script>
-        // attach Click event to all buttons in a BeerTable
+    // attach Click event to all buttons in a BeerTable
     $(".BeerTable").on("click", "button", function(){deletePubBeer(this)} ) 
     
     function deletePubBeer(thisbutton) {
