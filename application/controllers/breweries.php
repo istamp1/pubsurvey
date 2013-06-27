@@ -9,7 +9,7 @@ class Breweries extends CI_Controller {
      */
     public function index()
     {
-        // load the pub Model
+        // load the Brewery Model
         $this->load->model('brewery_model', '', TRUE);
         // use it to get an array of breweries
         $breweries = $this->brewery_model->getBreweries_array( 'br.BreweryID, br.BreweryName'
@@ -36,12 +36,12 @@ class Breweries extends CI_Controller {
     }
 
     public function mergeBreweries()
-    {   
+    {
         $breweryId = $this->input->post('breweryId', TRUE);
         $breweryToMergeId = $this->input->post('breweryToMergeId', TRUE);
 
         // load the Brewery model
-        $this->load->model('brewery_model','',TRUE);
+        $this->load->model('brewery_model', '', TRUE);
         // merge the two breweries
         $this->brewery_model->mergeBreweries($breweryId, $breweryToMergeId);
 
@@ -53,7 +53,7 @@ class Breweries extends CI_Controller {
         // create an array to pass to the view
         $return = $brewery_array[0];
         // add the breweries list
-        $return['breweries'] = $breweries['breweries']; 
+        $return['breweries'] = $breweries['breweries'];
         // load the view, passing the brewery details
         $this->load->view('breweryBeers_view', $return );
 
@@ -81,7 +81,7 @@ class Breweries extends CI_Controller {
         // create an array to pass to the view
         $return = $brewery_array[0];
         // add the breweries list
-        $return['breweries'] = $breweries['breweries']; 
+        $return['breweries'] = $breweries['breweries'];
         // load the view, passing the brewery details
         $this->load->view('breweryBeers_view', $return );
 

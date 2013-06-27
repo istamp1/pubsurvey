@@ -4,31 +4,48 @@
 <head>
     <meta charset="utf-8">
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="./jquery/global.js"></script> 
-    
-    <link rel="stylesheet" type="text/css" href="./style/main.css"> 
-    <title>Pub Survey - Beers</title>    
+    <script type="text/javascript" src="./jquery/global.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./style/main.css">
+    <title>Pub Survey - Beers</title>
 </head>
 
 <body>
-    
+
 <?php include 'session_view.php'; ?>
-    
+
 <div id="container">
-    
-    <?php $this->load->view('header_view', array( 'selected' => 'Beers', 'forename' => $forename, 'branch' => $branch ) ); ?>
+
+    <?php $this->load->view('header_view'
+            , array( 'selected' => 'Beers', 'forename' => $forename, 'branch' => $branch
+                   , 'stats' => $stats ) ); ?>
 
     <div id="body">
-        
-        <div id="left_content"> 
+
+        <div id="left_content">
+            <ul>
+                <?php
+                    $lastBrewery = "";
+                    foreach( $beers as $beer ) {
+                        if ($beer['BreweryName'] != $lastBrewery) {
+                            $lastBrewery = $beer['BreweryName'];
+                            echo '<strong>'.$lastBrewery.'</strong>';
+                        }
+                        $beerName = $beer['BeerName'];
+                        $beerID = $beer['BeerID'];
+                        $class = "beeritem";
+                        echo '<li class="'.$class.'" id="'.$beerID.'">'.$beerName.'</li>';
+                    }
+                ?>
+            </ul>
         </div>
-        
+
         <div id="main_content">
         </div>
-        
+
         <div id="right_content">
         </div>
-        
+
         <div class="clear"></div>
 
     </div>
