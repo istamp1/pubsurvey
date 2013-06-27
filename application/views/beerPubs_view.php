@@ -8,8 +8,7 @@
     <div class="col2">
         <p class="main_detail aln-r">
         <?php
-            echo $ABV;
-            echo $StyleDescription;
+            echo $ABV.' % '.$StyleDescription;
         ?>
     </div>
     <div class="clear"></div>

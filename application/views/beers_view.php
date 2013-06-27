@@ -25,7 +25,12 @@
         <div id="left_content">
             <ul>
                 <?php
+                    $lastBrewery = "";
                     foreach( $beers as $beer ) {
+                        if ($beer['BreweryName'] != $lastBrewery) {
+                            $lastBrewery = $beer['BreweryName'];
+                            echo '<strong>'.$lastBrewery.'</strong>';
+                        }
                         $beerName = $beer['BeerName'];
                         $beerID = $beer['BeerID'];
                         $class = "beeritem";

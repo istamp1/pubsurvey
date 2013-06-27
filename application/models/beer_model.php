@@ -10,7 +10,8 @@ class beer_model extends CI_Model {
     public function getBeers_array( $fields = '*', $search = '', $orderby = 'b.BeerName' ){
          if( $fields == '' ) { $fields = '*'; }
          $sql = "SELECT ".$fields."
-                   FROM locBeer b";
+                   FROM locBeer b
+                        JOIN locBrewery br on b.BreweryID = br.BreweryID";
          if ( $search != '' ) {
              $sql = $sql.' WHERE '.$search;
          }
@@ -23,8 +24,10 @@ class beer_model extends CI_Model {
     }
 
     public function getBeer_array( $beerid ){
-         $sql = "SELECT *
-                   FROM locBeer
+         $sql = "SELECT b.*
+                      , bs.StyleDescription
+                   FROM locBeer b
+                        LEFT JOIN locBeerStyle bs ON b.BeerStyle = bs.BeerStyle
                   WHERE BeerID = '$beerid'";
          $query = $this->db->query($sql);
          $row = $query->result_array();

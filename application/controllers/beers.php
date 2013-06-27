@@ -12,8 +12,8 @@ class Beers extends CI_Controller {
         // load the Beer Model
         $this->load->model('beer_model', '', TRUE);
         // use it to get an array of beers
-        $beers = $this->beer_model->getBeers_array( 'b.BeerID, b.BeerName'
-                                               , '', 'b.BeerName' );
+        $beers = $this->beer_model->getBeers_array( 'br.BreweryName, b.BeerID, b.BeerName'
+                                               , '', 'br.BreweryName, b.BeerName' );
         // add the stats view to the beers data
         $beers['stats'] = $this->stats(TRUE);
         // load the beers view
