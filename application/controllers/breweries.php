@@ -9,7 +9,7 @@ class Breweries extends CI_Controller {
      */
     public function index()
     {
-        // load the pub Model
+        // load the Brewery Model
         $this->load->model('brewery_model', '', TRUE);
         // use it to get an array of breweries
         $breweries = $this->brewery_model->getBreweries_array( 'br.BreweryID, br.BreweryName'
@@ -37,14 +37,16 @@ class Breweries extends CI_Controller {
 
     public function mergeBreweries()
     {
+        var_dump('mod_merge');
+
         $breweryId = $this->input->post('breweryId', TRUE);
         $breweryToMergeId = $this->input->post('breweryToMergeId', TRUE);
 
-        echo $breweryId;
-        echo $breweryToMergeId;
+        var_dump($breweryId);
+        var_dump($breweryToMergeId);
 
         // load the Brewery model
-        $this->load->model('brewery_model','',TRUE);
+        $this->load->model('brewery_model', '', TRUE);
         // merge the two breweries
         $this->brewery_model->mergeBreweries($breweryId, $breweryToMergeId);
 
