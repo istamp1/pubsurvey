@@ -59,7 +59,7 @@ class Breweries extends CI_Controller {
 
         $this->load->view('pubBeerHeading_view', array( 'beerCider' => 'Beers' ) );
         // get the brewery beers and ciders as an array
-        $brewerybeers_array = $this->brewery_model->getBreweryBeers_array( $breweryid );
+        $brewerybeers_array = $this->brewery_model->getBreweryBeers_array( $breweryId );
         // load Beers
         foreach ($brewerybeers_array as $brewerybeer) {
             // load the view, passing the beer details
@@ -70,11 +70,11 @@ class Breweries extends CI_Controller {
     public function showBrewery()
     {
         // get the POSTed breweryid
-        $breweryid = $this->input->post('breweryid', TRUE);
+        $breweryId = $this->input->post('breweryid', TRUE);
         // load the Brewery model
         $this->load->model('brewery_model','',TRUE);
         // get the brewery details as an array
-        $brewery_array = $this->brewery_model->getBrewery_array( $breweryid );
+        $brewery_array = $this->brewery_model->getBrewery_array( $breweryId );
         // get an array of breweries
         $breweries = $this->brewery_model->getBreweries_array( 'br.BreweryID, br.BreweryName'
                                                , '', 'br.BreweryName' );
@@ -87,7 +87,7 @@ class Breweries extends CI_Controller {
 
         $this->load->view('pubBeerHeading_view', array( 'beerCider' => 'Beers' ) );
         // get the brewery beers and ciders as an array
-        $brewerybeers_array = $this->brewery_model->getBreweryBeers_array( $breweryid );
+        $brewerybeers_array = $this->brewery_model->getBreweryBeers_array( $breweryId );
         // load Beers
         foreach ($brewerybeers_array as $brewerybeer) {
             // load the view, passing the beer details

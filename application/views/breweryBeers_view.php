@@ -14,14 +14,14 @@
     </div>
     <div class="clear"></div>
     <div class="mergeBrewery">
-        <form id="breweryToMergeForm"> 
+        <form id="breweryToMergeForm">
             <select id="breweryToMerge" name="breweryToMerge">
-                <?php 
+                <?php
                     foreach ( $breweries as $brewery ) {
                         echo '<option value="'.$brewery['BreweryID'].'">'.$brewery['BreweryName'].'</option>';
-                    }  
+                    }
                 ?>
-            </select>            
+            </select>
             <input type="hidden" name="breweryId" id="breweryId" value="<?php echo $BreweryID; ?>">
             <button type="submit" value="Submit">Merge</button>
         </form>
@@ -29,10 +29,9 @@
 
     <script>
         $('#breweryToMergeForm').submit(function() {
-            var breweryToMerge = $('#breweryToMerge').val(); 
+            var breweryToMerge = $('#breweryToMerge').val();
             var breweryId = $('#breweryId').val();
-            alert(breweryToMerge); 
-            
+
             $.post( './breweries/mergeBreweries'
                   , { 'breweryId':breweryId, 'breweryToMergeId':breweryToMerge }
                   , function(result) {
