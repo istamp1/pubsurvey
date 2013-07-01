@@ -83,6 +83,16 @@ class brewery_model extends CI_Model {
         }
     }
 
+    public function updateBrewery( $breweryID, $row ) {
+        if ($breweryID == '') {
+            return FALSE;
+        } else {
+            $this->db->where('BreweryID', $breweryID );
+            $this->db->update('locBrewery', $row );
+            return TRUE;
+        }
+    }
+
     public function deleteBrewery( $breweryId ) {
         $this->db->where('BreweryID', $breweryId );
         $this->db->delete('locBrewery');

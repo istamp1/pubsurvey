@@ -63,6 +63,38 @@ class Beers extends CI_Controller {
         }
     }
 
+    public function updateBeer()
+    {
+        $beerid = $this->input->post('beerId', TRUE);
+        $beerName = $this->input->post('beerName', TRUE);
+
+        // load the beer model
+        $this->load->model('beer_model', '', TRUE);
+        // update the beer
+        $this->beer_model->updatebeer($beerid, array( 'beerName' => $beerName ) );
+        
+        // get the beer details as an array
+        $beer_array = $this->beer_model->getBeer_array( $beerid );
+        // get an array of beers
+//        $beers = $this->beer_model->getBeers_array( 'br.BeerID, br.BeerName'
+//                                               , '', 'br.BeerName' );
+        // create an array to pass to the view
+        $return = $beer_array[0];
+        // add the beers list
+//        $return['beers'] = $beers['beers'];
+        // load the view, passing the beer details
+        $this->load->view('beerPubs_view', $return );
+
+        $this->load->view('beerPubHeading_view', array( 'beerCider' => 'Beers' ) );
+        // get the beer pubs as an array
+        $beerpubs_array = $this->beer_model->getBeerPubs_array( $beerid );
+        // load Beers
+        foreach ($beerpubs_array as $beerpub) {
+            // load the view, passing the beer details
+            $this->load->view('beerPub_view', array( 'beerpub' => $beerpub ) );
+        }
+    }
+
 }
 
 /* End of file pubs.php */
