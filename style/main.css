@@ -47,7 +47,7 @@
 
     p {
         -webkit-margin-before: 0em;
-        -webkit-margin-after: 0em; 
+        -webkit-margin-after: 0em;
     }
 
     p.footer{
@@ -58,15 +58,15 @@
         padding: 0 10px 0 10px;
         margin: 20px 0 0 0;
     }
-    
+
     #main_content tr:nth-child(even) {background: #E5E5E5}
     #main_content tr:nth-child(odd) {background: #F5F5F5}
-    
+
     label {
          float: left;
          width: 100px;
       }
- 
+
     fieldset {
        -webkit-margin-start: 0px;
        -webkit-margin-end: 0px;
@@ -91,15 +91,15 @@
        float: right;
     }
 
-    .marg-10 { 
+    .marg-10 {
         margin: 10px 10px 0 10px;
     }
-    
+
     .aln-r {
         text-align: right;
     }
-      
-    #container{  
+
+    #container{
             margin-left: auto;
             margin-right: auto;
             width: 960px;
@@ -112,32 +112,32 @@
         float: left;
         margin-left: 0px;
         margin-right: 0px;
-        width: 960px; 
+        width: 960px;
         line-height: normal;
     }
 
     #logo {
         display: block;
-        float: left; 
-        width: 150px; 
+        float: left;
+        width: 150px;
         padding: 15px 20px 10px 20px;
-    }    
+    }
 
     #title{
         display: block;
         font-size: 25px;
-        float: left; 
-        width: 620px; 
-        padding: 10px; 
+        float: left;
+        width: 620px;
+        padding: 10px;
     }
 
     #title td {
-        text-align: center; 
+        text-align: center;
         padding-left: 15px;
     }
 
     #title-left{
-        font-size: 50px; 
+        font-size: 50px;
         height: 115px;
         width: 310px;
         float: left;
@@ -145,7 +145,7 @@
     }
 
     #title-right{
-        font-size: 19px; 
+        font-size: 17px;
         height: 60px;
         width: 238px;
         float: left;
@@ -157,28 +157,28 @@
 
     #login {
         display: block;
-        float: left; 
-        width: 110px; 
+        float: left;
+        width: 110px;
         padding:  0 20px 0 0;
         text-align: right;
     }
 
     #loginmenu {
-        width: 400px; 
+        width: 400px;
         float: right;
         padding-top: 15px;
     }
 
     .loginmenuitem {
-        display: block; 
-        float: right; 
+        display: block;
+        float: right;
         margin-right: 5px;
         text-decoration: none;
     }
 
-    #CAMRAlogo { 
-        padding: 10px 0 0 0; 
-        float: right; 
+    #CAMRAlogo {
+        padding: 10px 0 0 0;
+        float: right;
     }
 
     #body {
@@ -186,16 +186,16 @@
     }
 
     .MenuContainer{
-        float: left; 
+        float: left;
     }
 
     .MenuItem{
         float: left;
-        display: inline;  
+        display: inline;
         padding: 5px 0;
         width: 238px;
         border:  1px solid white;
-        text-align: center; 
+        text-align: center;
         background-image: url("http://www.norwichcamra.org.uk/images/menu.png");
     }
 
@@ -208,11 +208,11 @@
 
     .MenuItemSelected{
         float: left;
-        display: inline;  
+        display: inline;
         padding: 5px 0;
         width: 238px;
         border:  1px solid white;
-        text-align: center; 
+        text-align: center;
         background-image: url("http://www.norwichcamra.org.uk/images/menuselected.png");
     }
 
@@ -229,57 +229,57 @@
     }
 
     .pubitem {
-        text-align: left; 
+        text-align: left;
     }
 
-    .realale { 
+    .realale {
         color: green;
     }
 
-    .norealale { 
+    .norealale {
         color: red;
     }
 
-    .unsurveyed { 
+    .unsurveyed {
         /*color: orange;*/
     }
 
     #main_content{
-        float: left; 
+        float: left;
         width: 640px;
     }
 
     .main_heading {
         font-size: 30px;
-        line-height: 35px;  
+        line-height: 35px;
     }
 
     .main_detail {
         font-size: 15px;
-        line-height: 20px; 
+        line-height: 20px;
     }
-    
+
     #pubVolunteerAddForm label {
-        width: auto; 
+        width: auto;
         margin: 2px 4px;
     }
-    
+
     #pubVolunteerAddForm input {
         float: left;
         margin: 2px 4px;
     }
-    
+
     #searchresults {
        padding: 0 0 10px 103px;
-    } 
+    }
 
-    #pubBeerAdd { 
+    #pubBeerAdd {
          padding: 10px;
          border: 1px solid #E5E5E5;
     }
 
     #right_content{
-        float: right; 
+        float: right;
         width: 145px;
     }
 
@@ -289,13 +289,13 @@
     }
 
     .clear {
-        clear: both; 
-        height:0; 
-        margin:0; 
+        clear: both;
+        height:0;
+        margin:0;
         line-height: 0px;
-    } 
+    }
 
-    .normal {        
+    .normal {
         font: 13px/20px normal Helvetica, Arial, sans-serif;
         text-align: justify;
         padding-bottom: 2px;
