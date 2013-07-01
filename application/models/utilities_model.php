@@ -4,7 +4,7 @@ class utilities_model extends CI_Model {
 
     public function getStats_array() { 
          $sql = "SELECT count(*) as 'total'
-                      , ( SELECT count(*) FROM locBeer ) as 'unique'
+                      , ( SELECT count(*) FROM locBeer WHERE beerstyle <> '' ) as 'unique'
                       , ( SELECT count( DISTINCT pubid ) FROM locPubBeer ) as 'surveyedsome'
                       , sum( IFNULL( pv.norealale, 0 ) ) as 'surveyednone'
                    FROM pubdb p 
