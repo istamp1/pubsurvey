@@ -1,30 +1,51 @@
 <ul>
 <?php
     foreach( $beers as $beer ) {
-        $breweryBeer = $beer['Beer'];
-        $beerID = $beer['BeerID'];
-        echo '<li class="findbeer" id="'.$beerID.'">'.$breweryBeer.'</li>';
+        $breweryBeer = $beer['BreweryName'].', '.$beer['BeerName'].' '.$beer['ABV'].' ('.$beer['Pubs'].')';
+        $beerID = $beer['Id'];
+?>
+        <li class="findbeer" id="li<?php echo $beerID; ?>">
+	    <?php echo $breweryBeer ?>
+            <input type="hidden" name="bis" value="<?php echo $beer['BIS']; ?>" />
+            <input type="hidden" name="breweryname" value="<?php echo $beer['BreweryName']; ?>" />
+            <input type="hidden" name="beername" value="<?php echo $beer['BeerName']; ?>" />
+            <input type="hidden" name="abv" value="<?php echo $beer['ABV']; ?>" />
+            <input type="hidden" name="beerstyle" value="<?php echo $beer['BeerStyle']; ?>" />
+	</li>
+<?php
         }
 ?>
 </ul>
 <script>
     // when selecting a beer, populate the Add form fields
     $('.findbeer').click(function() {
-        // get the beer details   
-        var beerID = this.id; 
-        var liText = $(this).html().split(", ");  
-        var brewery = liText[0]
-        var beer = liText[1]
-        var abv = liText[2]
-        var beerstyle = liText[3]
-        abv = abv.substr(0, abv.length - 1);
+        // get the beer details
+        var liBeerID = this.id;
+        var beerID = liBeerID.substr(2);
+	
         // populate the form fields
         $('#beerid').val(beerID);
-        $('#breweryname').val(brewery);
-        $('#beername').val(beer);
-        $('#abv').val(abv);
-        $('#beerstyle').val(beerstyle);
+        $('#breweryname').val($('#' + liBeerID + ' input[name=breweryname]').val());
+        $('#beername').val($('#' + liBeerID + ' input[name=beername]').val());
+        $('#abv').val($('#' + liBeerID + ' input[name=abv]').val());
+        $('#beerstyle').val($('#' + liBeerID + ' input[name=beerstyle]').val());
+	// enable / disable depending on whether sourced from BIS
+	var isBIS = false;
+	if($('#' + liBeerID + ' input[name=bis]').val() == 1) {
+	    isBIS = true;
+	}
+        $('#isbis').val($('#' + liBeerID + ' input[name=bis]').val());
+	
+	// disable if BIS
+	$('#breweryname').prop('disabled', isBIS)
+	$('#beername').prop('disabled', isBIS)
+	$('#abv').prop('disabled', isBIS)
+	$('#beerstyle').prop('disabled', isBIS)
+	
+	// clear search field and the results
+	$('#searchresults').html('');
+	
         // focus on the price
-        $('#price').focus(); 
-    });        
+        $('#price').focus();
+    });
 </script>

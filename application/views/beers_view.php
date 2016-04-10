@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <?php session_start(); ?>
-<html lang="en">
+<html lang="en"> 
 <head>
     <meta charset="utf-8">
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="./jquery/global.js"></script>
+    <script type="text/javascript" src="./jquery/beers.js"></script>
 
     <link rel="stylesheet" type="text/css" href="./style/main.css">
     <title>Pub Survey - Beers</title>
@@ -12,15 +13,17 @@
 
 <body>
 
-<?php include 'session_view.php'; ?>
+<?php include '../pubsurvey/application/controllers/session.php'; ?>
 
 <div id="container">
 
     <?php $this->load->view('header_view'
             , array( 'selected' => 'Beers', 'forename' => $forename, 'branch' => $branch
-                   , 'stats' => $stats ) ); ?>
+                   , 'stats' => $stats, 'year' => $year ) ); 
+    ?>
 
     <div id="body">
+	<span id="beerId" style="display: none"><?php echo $beerid; ?></span>
 
         <div id="left_content">
             <div>
@@ -31,16 +34,15 @@
                     $lastBrewery = "";
                     foreach( $beers as $beer ) {
                         if ($beer['BreweryName'] != $lastBrewery) {
-                            if ($lastBrewery == "") {
-                                echo '<div style="width: 120px">';
-                            } else {
-                                echo '</div><div style="width: 120px">';
+                            if ($lastBrewery != "") {
+								echo '</div>';
                             }
+                            echo '<div class="brewery" style="width: 120px">';
                             $lastBrewery = $beer['BreweryName'];
                             echo '<strong>'.$lastBrewery.'</strong>';
                         }
                         $beerName = $beer['BeerName'];
-                        $beerID = $beer['BeerID'];
+                        $beerID = $beer['Id'];
                         $class = "beeritem";
                         echo '<li class="'.$class.'" id="'.$beerID.'">'.$beerName.'</li>';
                     }
@@ -61,7 +63,9 @@
 </div>
 
 <script>
-        $('#searchbeervalue').keyup(function() {
+    $('#searchbeervalue').keyup(function() {
+        $( "#left_content .brewery" ).show(); 
+        $( "#left_content li" ).show(); 
         // get the search field value
         var search = this.value;
         // hide any beer li items which don't match
@@ -74,7 +78,15 @@
                    $(this).hide();
                }
             }
-        );
+        ); 
+        $( "#left_content .brewery" ).each(function() {  
+				if($(this).find('li:hidden').length  == $(this).find('li').length) {
+					$(this).hide();
+				} else {
+					$(this).show();
+				}
+			} 
+		);
         // prvent form submitting
         return false;
     });

@@ -9,22 +9,24 @@ class Breweries extends CI_Controller {
      */
     public function index()
     {
+        // set Year
+		include 'getYear.php';
         // load the Brewery Model
         $this->load->model('brewery_model', '', TRUE);
         // use it to get an array of breweries
-        $breweries = $this->brewery_model->getBreweries_array( 'br.BreweryID, br.BreweryName'
+        $breweries = $this->brewery_model->getBreweries_array( 'br.Id, br.BreweryCode, br.BreweryName'
                                                , '', 'br.BreweryName' );
         // add the stats view to the breweries data
-        $breweries['stats'] = $this->stats(TRUE);
+        $breweries['stats'] = $this->stats(TRUE, $year);
         // load the breweries view
         $this->load->view('breweries_view', $breweries);
     }
 
-    public function stats($asHTML) {
+    public function stats($asHTML, $year) {
         // load the utilities model
         $this->load->model('utilities_model', '', TRUE);
         // get stats as an array
-        $stats = $this->utilities_model->getStats_array();
+        $stats = $this->utilities_model->getStats_array($year);
         if ($asHTML) {
             // return the stats view
             return $this->load->view('pubStats_view', $stats[0], TRUE );
@@ -35,96 +37,24 @@ class Breweries extends CI_Controller {
         }
     }
 
-    public function mergeBreweries()
-    {
-        $breweryId = $this->input->post('breweryId', TRUE);
-        $breweryToMergeId = $this->input->post('breweryToMergeId', TRUE);
-
-        // load the Brewery model
-        $this->load->model('brewery_model', '', TRUE);
-        // merge the two breweries
-        $this->brewery_model->mergeBreweries($breweryId, $breweryToMergeId);
-        
-        $this->_showBrewery($breweryId, FALSE);
-
-//        // get the brewery details as an array
-//        $brewery_array = $this->brewery_model->getBrewery_array( $breweryId );
-//        // get an array of breweries
-//        $breweries = $this->brewery_model->getBreweries_array( 'br.BreweryID, br.BreweryName'
-//                                               , '', 'br.BreweryName' );
-//        // create an array to pass to the view
-//        $return = $brewery_array[0];
-//        // add the breweries list
-//        $return['breweries'] = $breweries['breweries'];
-//        // load the view, passing the brewery details
-//        $this->load->view('breweryBeers_view', $return );
-//
-//        $this->load->view('pubBeerHeading_view', array( 'beerCider' => 'Beers' ) );
-//        // get the brewery beers and ciders as an array
-//        $brewerybeers_array = $this->brewery_model->getBreweryBeers_array( $breweryId );
-//        // load Beers
-//        foreach ($brewerybeers_array as $brewerybeer) {
-//            // load the view, passing the beer details
-//            $this->load->view('breweryBeer_view', array( 'brewerybeer' => $brewerybeer ) );
-//        }
-    }
-
-    public function updateBrewery()
-    {
-        $breweryId = $this->input->post('breweryId', TRUE);
-        $breweryName = $this->input->post('breweryName', TRUE);
-
-        // load the Brewery model
-        $this->load->model('brewery_model', '', TRUE);
-        // merge the two breweries
-        $this->brewery_model->updateBrewery($breweryId, array( 'BreweryName' => $breweryName ) );
-        
-        $this->_showBrewery($breweryId, FALSE); 
-    }
-
     public function showBrewery()
     {
         // get the POSTed breweryid
         $breweryId = $this->input->post('breweryid', TRUE);
-        
-        $this->_showBrewery($breweryId);
-        
-//        // load the Brewery model
-//        $this->load->model('brewery_model','',TRUE);
-//        
-//        // get the brewery details as an array
-//        $brewery_array = $this->brewery_model->getBrewery_array( $breweryId );
-//        // get an array of breweries
-//        $breweries = $this->brewery_model->getBreweries_array( 'br.BreweryID, br.BreweryName'
-//                                               , '', 'br.BreweryName' );
-//        // create an array to pass to the view
-//        $return = $brewery_array[0];
-//        // add the breweries list
-//        $return['breweries'] = $breweries['breweries'];
-//        // load the view, passing the brewery details
-//        $this->load->view('breweryBeers_view', $return );
-//
-//        $this->load->view('pubBeerHeading_view', array( 'beerCider' => 'Beers' ) );
-//        // get the brewery beers and ciders as an array
-//        $brewerybeers_array = $this->brewery_model->getBreweryBeers_array( $breweryId );
-//        // load Beers
-//        foreach ($brewerybeers_array as $brewerybeer) {
-//            // load the view, passing the beer details
-//            $this->load->view('breweryBeer_view', array( 'brewerybeer' => $brewerybeer ) );
-//        }
+        $year = $this->input->post('year', TRUE);
+	
+        // load the Brewery model
+        $this->load->model('brewery_model','',TRUE);
+	
+		$this->_loadBrewery($breweryId, $year);
     }
 
-    private function _showBrewery($breweryId, $boolLoadModel = TRUE)
+    private function _loadBrewery($breweryId, $year)
     {
-        if ($boolLoadModel == TRUE) {
-            // load the Brewery model
-            $this->load->model('brewery_model','',TRUE);
-        }
-        
         // get the brewery details as an array
         $brewery_array = $this->brewery_model->getBrewery_array( $breweryId );
         // get an array of breweries
-        $breweries = $this->brewery_model->getBreweries_array( 'br.BreweryID, br.BreweryName'
+        $breweries = $this->brewery_model->getBreweries_array( 'br.Id, br.BreweryCode, br.BreweryName'
                                                , '', 'br.BreweryName' );
         // create an array to pass to the view
         $return = $brewery_array[0];
@@ -139,8 +69,39 @@ class Breweries extends CI_Controller {
         // load Beers
         foreach ($brewerybeers_array as $brewerybeer) {
             // load the view, passing the beer details
-            $this->load->view('breweryBeer_view', array( 'brewerybeer' => $brewerybeer ) );
+            $this->load->view('breweryBeer_view', array( 'brewerybeer' => $brewerybeer, 'brewerybeers' => $brewerybeers_array ) );
         }
+    }
+
+    public function mergeBreweries()
+    {
+        $breweryId = $this->input->post('breweryId', TRUE);
+        $breweryToMergeId = $this->input->post('breweryToMergeId', TRUE);
+
+        // load the Brewery model
+        $this->load->model('brewery_model', '', TRUE);
+	
+        // merge the two breweries
+        $this->brewery_model->mergeBreweries($breweryId, $breweryToMergeId);
+	
+        $year = $_SESSION['surveyyear'];
+		$this->_loadBrewery($breweryId, $year); 
+    }
+
+    public function mergeBeers()
+    {
+        $breweryId = $this->input->post('breweryId', TRUE);
+        $mergeBeerId = $this->input->post('mergeBeerId', TRUE);
+        $intoBeerId = $this->input->post('intoBeerId', TRUE);
+        $year = $this->input->post('year', TRUE);
+
+        // load the Brewery model
+        $this->load->model('brewery_model', '', TRUE);
+	
+        // merge the two beers
+        $this->brewery_model->mergeBeers($mergeBeerId, $intoBeerId);
+	
+		$this->_loadBrewery($breweryId, $year); 
     }
 
 }

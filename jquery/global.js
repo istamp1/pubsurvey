@@ -6,8 +6,9 @@ $(document).ready(function() {
     $('.pubitem').click(function() {
         // get the pub id
         var pubid = this.id;
+        var yr = $('#year').text();
         $.post('./pubs/showPub',
-            { 'pubid':pubid },
+            { 'pubid':pubid, 'year':yr },
             // when the Web server responds to the request
             function(result) {
                 // if there is a result, fill the list div and fade it in
@@ -22,8 +23,9 @@ $(document).ready(function() {
     $('.breweryitem').click(function() {
         // get the pub id
         var breweryid = this.id;
+        var yr = $('#year').text();
         $.post('./breweries/showBrewery',
-            { 'breweryid':breweryid },
+            { 'breweryid':breweryid, 'year':yr },
             // when the Web server responds to the request
             function(result) {
                 // if there is a result, fill the list div and fade it in
@@ -38,8 +40,9 @@ $(document).ready(function() {
     $('.beeritem').click(function() {
         // get the pub id
         var beerid = this.id;
+        var yr = $('#year').text();
         $.post('./beers/showBeer',
-            { 'beerid':beerid },
+            { 'beerid':beerid, 'year':yr },
             // when the Web server responds to the request
             function(result) {
                 // if there is a result, fill the list div and fade it in
@@ -55,7 +58,8 @@ $(document).ready(function() {
     var clock = setInterval( function(){stats()}, 60 * 1000 );
 
     function stats() {
-       $.post('./pubs/getStats', { },
+        var yr = $('#year').text();
+       $.post('./pubs/getStats', { 'year':yr },
             // when the Web server responds to the request
             function(result) {
                 // if there is a result, fill the title-right and fade it in

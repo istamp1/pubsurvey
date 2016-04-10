@@ -7,6 +7,7 @@
             }
             echo $PubName;
         ?>
+        &nbsp;<span id="pubid"><?php echo $PubID ?></span> 
         <p class="main_detail" id="norealale">
         <?php echo $norealaleview; ?>
     </div>
@@ -37,22 +38,56 @@
                         <input type="text" name="memberno" id="memberno" value="" size="5" maxlength="6">
                         <label for="membername">Name:</label>
                         <input type="text" name="membername" id="membername" value="" size="10" maxlength="40">
-                        <button type="submit" value="Submit">Add</button>
+                        <label for="memberemail">Email:</label>
+                        <input type="text" name="memberemail" id="memberemail" value="" size="15" maxlength="60">
+                        <button type="submit" value="Submit" style="margin-top: 2px;">Add</button>
                     </form>
                 <?php
             } else {
-                echo '<p class="aln-r">'.$MemberName.' ('.$MemberNo.')&nbsp<button class="deleteVolunteer" id="'.$PubID.'">Delete</button>';
+                echo '<p class="aln-r">'.$MemberName.' ('.$MemberNo.') '.$MemberEmail.'&nbsp<button class="deleteVolunteer" id="'.$PubID.'">Delete</button>';
             }
         ?>
+	<form class="aln-r" id="pubVolunteerSelectForm">
+	    <label style="float:none;" for="selectedmember">Volunteer:</label>
+	    <select id="selectedmember" name="selectedmember">
+		<?php
+		    foreach($members as $member) {
+			if($member['MemberNo'] == $MemberNo) {
+			    echo '<option value="'.$member['MemberNo'].'" selected>'.$member['MemberName'].'</option>';
+			} else {
+			    echo '<option value="'.$member['MemberNo'].'">'.$member['MemberName'].'</option>';
+			}
+		    }
+		?> 
+	    </select>
+	</form>
     </div>
     
     <script>
+	$('#pubVolunteerSelectForm').change(function() { 
+            var pubid = $('#pubid').text();
+            var yr = $('#year').text();
+            var memberno = $('#selectedmember').val();
+            $.post( './pubs/updatePubVolunteer'
+                  , { 'pubid':pubid, 'year':yr, 'memberno':memberno }
+                  , function(result) {  
+                        // if there is a result, fill the list div and fade it in  
+                        if(result) {
+                            $('#main_content').html(result);
+                            $('#main_content').fadeIn(100); 
+                        }
+                    });
+            // prvent form submitting 
+            return false;
+	});
+	
         $('#pubVolunteerAddForm').submit(function() {
-            var pubid = $('#pubid').val();
+            var pubid = $('#pubid').text();
+            var yr = $('#year').text();
             var memberno = $('#memberno').val();
             var membername = $('#membername').val();
             $.post( './pubs/updatePubVolunteer'
-                  , { 'pubid':pubid, 'memberno':memberno, 'membername':membername }
+                  , { 'pubid':pubid, 'year':yr, 'memberno':memberno, 'membername':membername }
                   , function(result) {  
                         // if there is a result, fill the list div and fade it in  
                         if(result) {
@@ -66,15 +101,15 @@
         
         $('.NRA').click(function() {
             var pubid = this.id;
+            var yr = $('#year').text();
             var norealale = 1; 
             $.post( './pubs/updatePubVolunteer'
-                  , { 'pubid':pubid, 'norealale':norealale }
+                  , { 'pubid':pubid, 'year':yr, 'norealale':norealale }
                   , function(result) {  
                         // if there is a result, fill the div and fade it in   
-                        alert(result);
                         if(result) {
-                            $('#norealale').html(result);
-                            $('#norealale').fadeIn(100); 
+                            $('#main_content').html(result);
+                            $('#main_content').fadeIn(100); 
                         }
                     });
             // prvent form submitting 
@@ -83,10 +118,11 @@
         
         $('.deleteVolunteer').click(function() {
             var pubid = this.id;
+            var yr = $('#year').text();
             var memberno = 0; 
             var membername = '';  
             $.post( './pubs/updatePubVolunteer'
-                  , { 'pubid':pubid, 'memberno':memberno, 'membername':membername }
+                  , { 'pubid':pubid, 'year':yr, 'memberno':memberno, 'membername':membername }
                   , function(result) {  
                         // if there is a result, fill the list div and fade it in  
                         if(result) {

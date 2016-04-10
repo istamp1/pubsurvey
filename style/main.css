@@ -85,6 +85,7 @@
     .col2 {
        float: left;
        width: 50%;
+	   margin-bottom: 2px;
     }
 
     .fr {
@@ -97,6 +98,7 @@
 
     .aln-r {
         text-align: right;
+		margin-bottom: 2px;
     }
 
     #container{
@@ -180,6 +182,17 @@
         padding: 10px 0 0 0;
         float: right;
     }
+    
+    #nextlastyear {
+	width: 24px;
+	float: left;
+	margin: 8px 0 0 6px;
+	font-size: small
+    }
+    
+    #nextlastyear button:hover {
+	cursor: pointer
+    }
 
     #body {
         margin: 15px 15px 0 15px;
@@ -226,6 +239,26 @@
     #left_content{
         float: left;
         width: 145px;
+    }
+
+    .findbeer:hover {
+        cursor: pointer;
+    }
+
+    .beeritem:hover {
+        cursor: pointer;
+    }
+
+    .breweryitem:hover {
+        cursor: pointer;
+    }
+
+    .brewerybeer:hover {
+        cursor: pointer;
+    }
+
+    .pubitem:hover {
+        cursor: pointer;
     }
 
     .pubitem {
@@ -298,5 +331,9 @@
     .normal {
         font: 13px/20px normal Helvetica, Arial, sans-serif;
         text-align: justify;
-        padding-bottom: 2px;
+        padding-bottom: 10px;
+    }
+    
+    .hidden {
+	display: none;
     }

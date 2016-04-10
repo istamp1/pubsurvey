@@ -25,23 +25,30 @@ class brewery_model extends CI_Model {
     public function getBrewery_array( $breweryid ){
          $sql = "SELECT *
                    FROM locBrewery
-                  WHERE BreweryID = '$breweryid'";
+                  WHERE Id = '$breweryid'";
+         $query = $this->db->query($sql);
+         $row = $query->result_array();
+         return $row;
+    }
+
+    public function getBeer_array( $beerid ){
+         $sql = "SELECT *
+                   FROM locBeer
+                  WHERE Id = '$beerid'";
          $query = $this->db->query($sql);
          $row = $query->result_array();
          return $row;
     }
 
     public function getBreweryBeers_array( $breweryid ) {
-        $sql = "SELECT b.BeerID
-                     , b.BreweryID, b.BeerName, b.ABV, b.BeerStyle, b.BeerCiderPerry
-                     , br.BreweryName
-                     , bs.StyleDescription
+        $sql = "SELECT b.Id locBeerId, b.BeerId bisBeerId
+                     , b.locBreweryId, b.BeerName, b.ABV, b.BeerStyle, b.BeerCiderPerry
+                     , br.BreweryName, bs.StyleDescription
                   FROM locBeer b
-                       JOIN locBrewery br ON b.BreweryID = br.BreweryID
+                       JOIN locBrewery br ON b.locBreweryID = br.Id
                        LEFT JOIN locBeerStyle bs ON b.BeerStyle = bs.BeerStyle
-                 WHERE b.BreweryID = '$breweryid'
-                 ORDER BY br.BreweryName, b.BeerName"; 
-        
+                 WHERE b.locBreweryID = '$breweryid'
+                 ORDER BY br.BreweryName, b.BeerName";
         $query = $this->db->query($sql);
         $brewerybeers = $query->result_array();
 
@@ -49,53 +56,52 @@ class brewery_model extends CI_Model {
     }
 
     public function mergeBreweries( $breweryIdToKeep, $breweryIdToMerge ) {
-        // get brewery's beers 
+        // get brewery's beers
         $breweryBeersToMerge = $this->getBreweryBeers_array( $breweryIdToMerge );
         // change the brewery id of eaach to the new brewery
         foreach ($breweryBeersToMerge as $breweryBeerToMerge) {
-            $this->updateBeer( $breweryBeerToMerge['BeerID'], array( 'BreweryID' => $breweryIdToKeep ) );
+            $this->updateBeer( $breweryBeerToMerge['locBeerId'], array( 'locBreweryId' => $breweryIdToKeep ) );
         }
         // delete the old brewery
         $this->deleteBrewery($breweryIdToMerge);
     }
 
-    public function mergeBreweryBeers( $beerIdToKeep, $beerIdToMerge ) {
-        $this->updatePubBeer( $beerIdToMerge, array( 'BeerID' => $beerIdToKeep ) );
-    }
-
-    public function updatePubBeer( $beerID, $row ) {
-        if ($beerID == '') {
+    public function updateBeer( $beerId, $row ) {
+        if ($beerId == '' or $beerId == 0) {
             return FALSE;
         } else {
-            $this->db->where('BeerID', $beerID );
-            $this->db->update('locPubBeer', $row );
-            return TRUE;
-        }
-    }
-
-    public function updateBeer( $beerID, $row ) {
-        if ($beerID == '') {
-            return FALSE;
-        } else {
-            $this->db->where('BeerID', $beerID );
+            $this->db->where('Id', $beerId );
             $this->db->update('locBeer', $row );
             return TRUE;
         }
     }
 
-    public function updateBrewery( $breweryID, $row ) {
-        if ($breweryID == '') {
+    public function deleteBrewery( $breweryId ) {
+        $this->db->where('Id', $breweryId );
+        $this->db->delete('locBrewery');
+        return TRUE;
+    }
+
+    public function mergeBeers($mergeBeerId, $intoBeerId) {
+        // get brewery's beers
+        $this->updatePubBeer( $mergeBeerId, array( 'locBeerId' => $intoBeerId ) ); 
+        // delete the old brewery
+        $this->deleteBeer($mergeBeerId);
+    }
+
+    public function updatePubBeer( $beerId, $row ) {
+        if ($beerId == '' or $beerId == 0) {
             return FALSE;
         } else {
-            $this->db->where('BreweryID', $breweryID );
-            $this->db->update('locBrewery', $row );
+            $this->db->where('locBeerId', $beerId );
+            $this->db->update('locPubBeer', $row );
             return TRUE;
         }
     }
 
-    public function deleteBrewery( $breweryId ) {
-        $this->db->where('BreweryID', $breweryId );
-        $this->db->delete('locBrewery');
+    public function deleteBeer( $beerId ) {
+        $this->db->where('Id', $beerId );
+        $this->db->delete('locBeer');
         return TRUE;
     }
 

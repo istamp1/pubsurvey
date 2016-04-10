@@ -7,16 +7,33 @@
                 Norwich & Norfolk CAMRA
             </div>
             <div id="title-left">
-                Pub Survey
+                <div>Pub Survey</div>
+                <div>
+		    <span id="year" style="float: left"><?php echo $year ?></span>
+		    <div id="nextlastyear">
+			<a href="./<?php 
+				    $newYear = $year + 1;
+				    echo strtolower($selected).'?year='.$newYear; 
+				    ?>">
+			    <button id="nextyear" style="margin: 0;">+</button>
+			</a>
+			<a href="./<?php 
+				    $newYear = $year - 1;
+				    echo strtolower($selected).'?year='.$newYear; 
+				    ?>">
+			    <button id="lastyear" style="width: 24px;">-</button>
+			</a>
+		    </div>
+		</div>
             </div>
             <div id="title-right"><?php echo $stats;?>
-            </div> 
+            </div>
         </div>
-        <div id="login"> 
+        <div id="login">
             <div id="loginmenu">
                 <ul>
                     <li class="loginmenuitem">
-                        <a href="./login" target="_top"><?php if( $forename == '') { echo "Log In"; } else { echo $forename.' ('.$branch.')'; } ?></a> 
+                        <a href="./login" target="_top"><?php if( $forename == '') { echo "Log In"; } else { echo $forename.' ('.$branch.')'; } ?></a>
                     </li>
                     <li class="loginmenuitem">
                         <a class="undec-link" href="http://www.norwichcamra.org.uk/pubdb/GetPubsByLocation.php" target="_blank">Norfolk Pubs |</a>
@@ -36,13 +53,13 @@
         </div>
     </div>
     <div class="clear"></div>
-    
-    <div id="MenuContainer"> 
+
+    <div id="MenuContainer">
         <ul>
             <li class="MenuItem<?php if ($selected=='Home') { echo 'Selected'; }; ?>"><a href="./home" target="_top">Home</a></li>
             <li class="MenuItem<?php if ($selected=='Pubs') { echo 'Selected'; }; ?>"><a href="./pubs" target="_top">Pubs</a></li>
             <li class="MenuItem<?php if ($selected=='Breweries') { echo 'Selected'; }; ?>"><a href="./breweries" target="_top">Breweries</a></li>
             <li class="MenuItem<?php if ($selected=='Beers') { echo 'Selected'; }; ?>"><a href="./beers" target="_top">Beers</a></li>
-        </ul> 
+        </ul>
     </div>
     <div class="clear"></div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php session_start(); ?>
+<?php // session_start(); ?>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -12,13 +12,13 @@
 
 <body>
 
-<?php include 'session_view.php'; ?>
+<?php include '../pubsurvey/application/controllers/session.php'; ?>
 
 <div id="container">
 
     <?php $this->load->view('header_view'
             , array( 'selected' => 'Pubs', 'forename' => $forename, 'branch' => $branch
-                   , 'stats' => $stats ) ); ?>
+                   , 'stats' => $stats, 'year' => $year ) ); ?>
 
     <div id="body">
 

@@ -8,95 +8,32 @@ class Login extends CI_Controller {
      * Maps to the following URL:  http://example.com/pubs
      */
     
-    // Authenticate user using the APT service
-    function Authenticate($securityKey, // security key 
-                          $username, 	// username of user to authenticate
-                          $password 	// claimed password of user
-            ) {
-        $url = 'https://comms2.aptsolutions.net/cra-comms/users';	// the URL of the authentication service
-
-        // create a CURL channel to call the authentication service
-        $ch = curl_init();
-        if( !$ch )  { 
-            trigger_error( "Failed to start CURL", E_USER_ERROR );        
-        }
-        
-        // REMOVE BEFORE GOING LIVE!!
-        curl_setopt ($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt ($ch, CURLOPT_SSL_VERIFYPEER, 0); 
-
-        $securityKeyParam = urlencode( $securityKey ); 
-
-        // construct the XML request object
-        $doc = new SimpleXMLElement( '<Users/>' );
-        $doc->addChild( 'UserID', $username );
-        $doc->addChild( 'Password', $password ); 
-        
-        $request = $doc->asXML();
-        $requestParam = urlencode( $request );
-
-        // setup a POST
-        curl_setopt( $ch, CURLOPT_URL, "$url/?securityKey=$securityKeyParam" );
-        curl_setopt( $ch, CURLOPT_POST, 1 );
-        curl_setopt( $ch, CURLOPT_POSTFIELDS, "newValues=$requestParam&callMethod=ReadData" );
-
-        // ensure curl_exec returns the result rather than echoing it
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-
-        // execute the POST method
-        $xmlString = curl_exec( $ch );
-
-        if (curl_errno( $ch )) {
-            trigger_error( 'CURL error: ' . curl_error( $ch ), E_USER_ERROR );
-        }
-
-        curl_close( $ch );
-
-        try{
-            $xml = new SimpleXMLElement( $xmlString );
-        }
-        catch( Exception $e )
-        {
-            trigger_error( 'Invalid response: ' . $e->getMessage(), E_USER_ERROR );
-        }
-
-        if ($xml->getName() != 'Users') {
-            trigger_error( 'Invalid response data: ' . $xml->getName(), E_USER_ERROR );
-        }
-
-        if( $xml->status == '0' ) {
-            // username/password OK
-            if( $xml->LapseCode == '' ) { 
-                // not lapsed 
-            } else { 
-                return 'Lapsed'; 
-            }
-        } else if( $xml->status == '1' ) {
-            return 'InvalidUser';	
-        } else {
-            trigger_error( 'Invalid response value: ' . $xml->status, E_USER_ERROR );
-        }
-
-        $name = $xml->Forename1 . ' ' . $xml->Surname;
-        $branch = $xml->BranchDesc;
-
-        return array( 'name' => $name
-                    , 'branch' => $branch
-                    , 'response' => $xmlString );
-    }
 
     function CAMRALogin($number, $password) {  
         
-        $securityKey = '';
+        include("centralAuthentication.inc.php");
+		include("centralAuthKey.inc.php");
 
-        $info = $this->Authenticate( $securityKey, $number, $password );
+        $info = Authenticate( $securityKey, $number, $password );
+		
+        if( !$info['validLogin'] ) {
+            echo '<p>Membership number or password incorrect - please visit the <a href="https://members.camra.org.uk/web/guest">CAMRA Members website</a> where you can reset your password<p>';
+        }
+		return $info;
+    }
 
-        if( $info == 'InvalidUser' ) {
-            echo 'Membership number or password incorrect';
-        } else if( $info == 'Lapsed' ) {
-            echo 'Membership lapsed';
-        } else {   
-             return $info['response'];
+    public function stats($asHTML) {
+        // load the utilities model
+        $this->load->model('utilities_model', '', TRUE);
+        // get stats as an array
+        $stats = $this->utilities_model->getStats_array();
+        if ($asHTML) {
+            // return the stats view
+            return $this->load->view('pubStats_view', $stats[0], TRUE );
+        } else {
+            // load the stats view
+            $this->load->view('pubStats_view', $stats[0] );
+            return FALSE;
         }
     }
     
@@ -113,6 +50,8 @@ class Login extends CI_Controller {
 
         // load the view to log in    
         $viewData = array( "xmlString" => $xmlString); 
+        // add the stats view to the pubs data
+        $viewData['stats'] = $this->stats(TRUE);
         
         $this->load->view('login_view', $viewData);
     }        

@@ -11,7 +11,7 @@ class beer_model extends CI_Model {
          if( $fields == '' ) { $fields = '*'; }
          $sql = "SELECT ".$fields."
                    FROM locBeer b
-                        JOIN locBrewery br on b.BreweryID = br.BreweryID";
+                        JOIN locBrewery br on b.locBreweryID = br.Id";
          if ( $search != '' ) {
              $sql = $sql.' WHERE '.$search;
          }
@@ -28,21 +28,22 @@ class beer_model extends CI_Model {
                       , bs.StyleDescription
                    FROM locBeer b
                         LEFT JOIN locBeerStyle bs ON b.BeerStyle = bs.BeerStyle
-                  WHERE BeerID = '$beerid'";
+                  WHERE Id = '$beerid'";
          $query = $this->db->query($sql);
          $row = $query->result_array();
          return $row;
     }
 
-    public function getBeerPubs_array( $beerid ) {
-        $sql = "SELECT b.BeerID, b.BeerName, b.ABV, b.BeerStyle, b.BeerCiderPerry
+    public function getBeerPubs_array( $beerid, $year ) {
+        $sql = "SELECT b.Id, b.BeerName, b.ABV, b.BeerStyle, b.BeerCiderPerry
                      , p.PubName, p.Address
                      , bs.StyleDescription
                   FROM locBeer b
-                       JOIN locPubBeer pb ON b.BeerID = pb.BeerID
+                       JOIN locPubBeer pb ON b.Id = pb.locBeerID
                        JOIN pubdb p ON pb.PubID = p.PubID
                        LEFT JOIN locBeerStyle bs ON b.BeerStyle = bs.BeerStyle
-                 WHERE b.BeerID = '$beerid'";
+                 WHERE b.Id = '$beerid'
+		           AND pb.SurveyYear = $year";
         $sql = $sql." ORDER BY b.BeerName, p.PubName";
 
         $query = $this->db->query($sql);
